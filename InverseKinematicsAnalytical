@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+from ev3dev2.motor import LargeMotor, MoveSteering, OUTPUT_A, OUTPUT_D, MoveTank
+from time import sleep
+import sys
+import math
+import numpy as np
+
+phi1=0
+phi2=0
+phi3=0
+theta1=0
+theta2=0
+r1=0
+
+# Define variables
+# phi1 formulas
+
+#phi2 formulas
+
+# theta1=phi2-phi1
+
+# r1 formula
+
+# phi3 formula
+
+#theta2= 180-phi3
+
+

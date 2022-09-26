@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+from ev3dev2.motor import LargeMotor, MoveSteering, OUTPUT_A, OUTPUT_D, MoveTank
+from time import sleep
+import sys
+import math
+from InverseKinematicsAnalytical import theta1, theta2
+
+large_motor1=LargeMotor(OUTPUT_A)
+large_motor2=LargeMotor(OUTPUT_D)
+steer_pair = MoveSteering(OUTPUT_D, OUTPUT_A, motor_class=LargeMotor)
+tank = MoveTank(OUTPUT_D, OUTPUT_A, motor_class=LargeMotor)
+
+
+#Define angles
+theta1= 0 #import from inverse kinematics analytical files
+theta2= 0 #import from inverse kinematics analytical files
+
+#Move the motor by the angles (put into a function)
+large_motor1.on_for_degrees(speed=30, degrees=theta1)
+large_motor2.on_for_degrees(speed=30,degrees=theta2)
+
+
+
+
+
