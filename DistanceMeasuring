@@ -3,19 +3,18 @@ from ev3dev2.motor import LargeMotor, MoveSteering, OUTPUT_A, OUTPUT_D, MoveTank
 from time import sleep
 from sys import stderr
 import math
-import numpy as np
+# import numpy as np
 from ev3dev2.sensor.lego import TouchSensor
 
-
 #Define joint length
-a1= 5
-a2= 6
-a3=5.5
-a4=5
+a1= 0
+a2= 12.1
+a3=0
+a4=12.1
 
-tach_motor1=Motor(OUTPUT_A)
-tach_motor2=Motor(OUTPUT_D)
-ts= TouchSensor()
+tach_motor1=LargeMotor(OUTPUT_A)
+tach_motor2=LargeMotor(OUTPUT_D)
+ts= TouchSensor('in1')
 
 motor1_rot=0
 motor2_rot=0
@@ -40,7 +39,10 @@ def motor_Position2():
    motor2_posi=(tach_motor2.position()/motor2_rot)*360
    theta2_rad= (motor2_posi/180)*math.pi
    return theta2_rad
-
+H0_2 = [[0,0,0,0],
+         [0,0,0,0],
+         [0,0,0,0],
+         [0,0,0,0]]
 
 while (ts.is_pressed):
    theta1_rad= motor_Position1()
@@ -55,14 +57,25 @@ while (ts.is_pressed):
         [math.sin(theta2_rad),math.cos(theta2_rad),0,a4*math.cos(theta2_rad)],
         [0, 0, 1, a3],
         [0, 0, 0, 1]]
-   #H0_2=math.dot(H0_1,H1_2)
-   H0_2=np.dot(H0_1,H1_2)
+# iterate through rows of X
+   for i in range(len(H0_1)):
+   # iterate through columns of Y
+       for j in range(len(H1_2[0])):
+       # iterate through rows of Y
+          for k in range(len(H1_2)):
+           H0_2[i][j] += H0_1[i][k] * H1_2[k][j]
    xPosi[count]=H0_2[0][3]
    yPosi[count]=H0_2[1][3]
    count+=1
-   print(H0_2,file=stderr)
+
+
+for r in H0_2:
+   print(r,file=stderr)
+   
 
 if count==1:
    xDis=abs(xPosi[0]-xPosi[1])
    yDis=abs(yPosi[0]-yPosi[1])
+   print(xDis,file=stderr)
+   print(yDis,file=stderr)
     

@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-from ev3dev2.motor import LargeMotor, MoveSteering, OUTPUT_A, OUTPUT_D, MoveTank
+from ev3dev2.motor import LargeMotor, MoveSteering, OUTPUT_A, OUTPUT_D, MoveTank, Motor
 from time import sleep
 import sys
 import math
 
-large_motor1=LargeMotor(OUTPUT_A)
-large_motor2=LargeMotor(OUTPUT_D)
+large_motor1=Motor(OUTPUT_A)
+large_motor2=Motor(OUTPUT_D)
 steer_pair = MoveSteering(OUTPUT_D, OUTPUT_A, motor_class=LargeMotor)
 tank = MoveTank(OUTPUT_D, OUTPUT_A, motor_class=LargeMotor)
 
 
 #Define angles
-theta1= 0
-theta2= 0
+theta1= 45
+theta2= 45
 
 #Move the motor by the angles (put into a function)
 large_motor1.on_for_degrees(speed=30, degrees=theta1)
